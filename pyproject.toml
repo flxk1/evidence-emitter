@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence-emitter"
+version = "0.1.0"
+description = "Compose loomground assurance components into one signed, offline-verifiable governance evidence package."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "flxk1" }]
+dependencies = []
+
+[project.optional-dependencies]
+# The family's canonicalization scheme. Absent it, a stdlib JCS approximation is used.
+canonical = ["rfc8785>=0.1"]
+# Production Ed25519 signing/verification (key material supplied by the host).
+ed25519 = ["cryptography>=41"]
+# Any subset of the assurance components may be installed; each is probed at runtime.
+assurance = [
+    "governance-certification",
+    "oversight-certificate",
+    "enforcement-posture",
+    "effect-reconciliation",
+    "norm-freshness",
+    "obligation-discharge",
+    "5d-nd",
+]
+dev = ["pytest>=7", "rfc8785>=0.1", "cryptography>=41"]
+
+[project.scripts]
+evidence-emit = "evidence_emitter.cli:emit_main"
+evidence-verify = "evidence_emitter.cli:verify_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

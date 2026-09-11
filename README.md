@@ -10,6 +10,30 @@ in-toto Statement and ships an offline verifier. It wraps those components; it
 does not reimplement them. Each component is optional and probed independently,
 so the package degrades to whatever is installed and marks the rest absent.
 
+## Install
+
+From the `loomground-plugins` marketplace (publication pending):
+
+```
+/plugin marketplace add flxk1/loomground-plugins
+/plugin install evidence-emitter@loomground
+```
+
+Directly from GitHub, with pip:
+
+```
+pip install "git+https://github.com/flxk1/evidence-emitter.git"
+```
+
+Base install has zero hard dependencies. Optional extras:
+
+- `pip install -e .[canonical]` — `rfc8785` (RFC 8785 JSON canonicalization; a
+  stdlib approximation is used when absent)
+- `pip install -e .[ed25519]` — `cryptography` (production Ed25519 signing/verification)
+- `pip install -e .[assurance]` — the loomground assurance components this package
+  composes, when present
+- `pip install -e .[dev]` — pytest + the above, for running the test suite
+
 ## What it attests
 
 The emitter certifies the work of other capabilities. Two subject shapes are

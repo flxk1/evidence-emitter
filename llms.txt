@@ -1,0 +1,52 @@
+# evidence-emitter
+
+> Composes the installed loomground assurance components into one DSSE-signed in-toto Statement and ships an offline verifier, so anyone can re-check, from the package's bytes alone, what governance an agent applied to an action.
+
+## Problem
+A governance decision (a compliance-fleet directive, a privacy-shield egress verdict) is only as trustworthy as the evidence someone can re-check afterward, offline, without trusting the emitting agent again. evidence-emitter digest-binds the decision, embeds whichever assurance components are installed (each probed independently, absent ones marked as such rather than faked), and signs the result — a package a verifier can check from bytes alone.
+
+## Install
+```
+pip install "evidence-emitter @ git+https://github.com/flxk1/evidence-emitter@v0.1.0"
+```
+Import name `evidence_emitter`. Base install has zero hard dependencies. Optional extras:
+- `.[canonical]` — `rfc8785` (RFC 8785 JSON canonicalization; a stdlib approximation is used when absent)
+- `.[ed25519]` — `cryptography` (production Ed25519 signing/verification; key material supplied by the host)
+- `.[assurance]` — the loomground assurance components this package composes, when present
+- `.[dev]` — `pytest` plus the above
+
+## Usage
+```python
+from evidence_emitter import emit, verify, EvidenceContext, DevSigner
+
+package = emit(
+    subject,                     # an a2a-compliance decision or a privacy-shield ScanReport
+    components=None,             # optional allowlist of component keys; others are marked absent
+    signer=DevSigner(),          # default; a production signer supplies its own key
+    context=EvidenceContext(...) # the governance inputs each present component attests
+)
+
+report = verify(package)         # offline re-check
+report.ok                        # bool
+report.summary()                 # one-line human summary
+```
+`emit(subject, *, kind=None, components=None, signer=None, context=None, issued_at=None) -> EvidencePackage`. `verify(package, *, signer=None) -> VerdictReport`. `EvidencePackage.to_dict()` / `.from_dict()` round-trip the DSSE envelope.
+
+CLI:
+```
+evidence-emit   <subject.json> [--kind KIND] [--context context.json] [--components a,b] [-o out.json]
+evidence-verify <package.json>
+```
+Both default to the non-production dev signer; a production signing key is supplied to the library API, never on a command line.
+
+## Contracts
+| Surface | Definition |
+|---|---|
+| Recognised subjects | an a2a-compliance control `Message`/`SteerRuling`, or a privacy-shield `ScanReport` — matched structurally, without importing either package |
+| Assurance components | `evidence_emitter.components` — `governance-certification`, `oversight-certificate`, `enforcement-posture`, `effect-reconciliation`, `norm-freshness`, `obligation-discharge`, `5d-nd`; each contributes one attestation/computation/grounding section, or is marked absent |
+| Signing seam | `evidence_emitter.signer` — `DevSigner` (HMAC dev stand-in, `production=False`), `Ed25519Signer`/`Ed25519Verifier` (host-supplied key via `from_private_pem`/`from_public_pem`); any `Signer` needs `key_id`, `algorithm`, `production`, `sign`, `verify`, `descriptor` |
+| Canonical bytes | `evidence_emitter.canonical` — RFC 8785 (JCS) when available, else a named stdlib sort-keys approximation; a verifier missing the named scheme fails closed |
+| Subject normalization | `evidence_emitter.subjects` |
+| Skill entry | `skills/evidence-emitter/SKILL.md` |
+
+Every present section is re-checked through its own component's verifier where installed, and a generic DSSE check otherwise; a package signed by the dev signer verifies but is reported non-production.

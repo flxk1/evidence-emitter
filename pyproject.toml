@@ -27,7 +27,17 @@ assurance = [
     "obligation-discharge",
     "5d-nd",
 ]
-dev = ["pytest>=7", "rfc8785>=0.1", "cryptography>=41"]
+# enforcement-posture and effect-reconciliation are the two assurance
+# components the test fixtures exercise for real (see tests/fixtures.py);
+# neither is on PyPI, so dev pins them straight to their source, matching
+# the commits this suite is known to pass against.
+dev = [
+    "pytest>=7",
+    "rfc8785>=0.1",
+    "cryptography>=41",
+    "enforcement-posture @ git+https://github.com/flxk1/enforcement-posture@fdd143a2a853fdba980dc45fbd6e69199ad5598c",
+    "effect-reconciliation @ git+https://github.com/flxk1/effect-reconciliation@b2b3f995c0d9f9cca9bbabdf628d88cda26c91d2",
+]
 
 [project.scripts]
 evidence-emit = "evidence_emitter.cli:emit_main"

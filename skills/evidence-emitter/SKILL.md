@@ -1,18 +1,11 @@
 ---
 name: evidence-emitter
 description: >-
-  Emit a signed, offline-verifiable governance-evidence package proving what
-  governance was applied to an action or piece of work, and verify such a package
-  offline. It composes whichever loomground assurance components are installed
-  (enforcement posture, effect reconciliation, norm freshness, obligation
-  discharge, oversight certificate, governance certification, 5d-nd) into one
-  DSSE / in-toto statement whose subject is digest-bound; absent components are
-  marked absent, never faked. It attests a compliance-fleet decision or a
-  privacy-shield scan report. The default signer is a clearly-labelled dev HMAC
-  key with zero authenticity; a production Ed25519 signer takes host-supplied key
-  material — no key is ever minted or embedded. Triggers on "prove this was
-  governed", "emit a governance certificate", "make an audit-evidence package",
-  "verify this evidence package", "attest this decision".
+  Compose loomground assurance components into one signed, offline-verifiable
+  governance evidence package. Use when asked to prove what governance was
+  applied to an action or a piece of work, emit a governance certificate or an
+  audit-evidence package, attest a compliance-fleet decision or a privacy-shield
+  scan report, or verify such a package offline.
 governance:
   grade: L1
   actions:
@@ -39,8 +32,20 @@ governance:
 
 Implemented in the `evidence_emitter` package: `emit(subject, ...) ->
 EvidencePackage` and `verify(package) -> VerdictReport`, plus the `evidence-emit`
-and `evidence-verify` CLIs. The subject accepts an a2a-compliance decision or a
-privacy-shield `ScanReport`; the package composes the installed assurance
-components (absent ones marked, not faked) and the pluggable `Signer` contract is
-described in the README. Production signing takes host key material; the default
-dev signer has zero authenticity and is flagged on every verdict.
+and `evidence-verify` CLIs.
+
+The subject accepts an a2a-compliance decision/directive or a privacy-shield
+`ScanReport`, matched structurally and digest-bound into the package. The
+package composes whichever of the seven assurance components are installed —
+enforcement posture, effect reconciliation, norm freshness, obligation
+discharge, oversight certificate, governance certification, 5d-nd — into one
+DSSE / in-toto statement. Absent components are marked absent, never faked.
+
+The default signer is a clearly-labelled dev HMAC key with zero authenticity; a
+production Ed25519 signer takes host-supplied key material, and no key is ever
+minted or embedded. Every verdict reports whether the signer was production.
+
+Triggers: "prove this was governed", "emit a governance certificate", "make an
+audit-evidence package", "verify this evidence package", "attest this decision".
+
+Reference: the repository `README.md` and its `docs/` directory.

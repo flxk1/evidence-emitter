@@ -34,7 +34,7 @@ print(report.summary())
 - `emit(subject, *, kind=None, components=None, signer=None, context=None, issued_at=None) -> EvidencePackage`
 - `verify(package, *, signer=None) -> VerdictReport` — `.ok` `.present` `.no_input` `.absent` `.sections` `.summary()`
 - `EvidenceContext` carries the per-component inputs · `EvidencePackage.to_dict()` / `.from_dict()` is the DSSE envelope · `PREDICATE_TYPE`
-- `normalize(subject, kind=None) -> NormalizedSubject` · `A2A_DECISION` · `SCANREPORT` · subjects and components: [docs/components.md](docs/components.md)
+- `normalize(subject, *, kind=None) -> NormalizedSubject` · `A2A_DECISION` · `SCANREPORT` · subjects and components: [docs/components.md](docs/components.md)
 - `DevSigner`, `Ed25519Signer`, `Ed25519Verifier`, the `Signer` protocol, the `evidence-emit` / `evidence-verify` CLI: [docs/signing.md](docs/signing.md)
 - What a verdict proves, and its limits: [docs/verification.md](docs/verification.md)
 

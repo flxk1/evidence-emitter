@@ -9,3 +9,5 @@ dist/
 .venv/
 .DS_Store
 work/
+# the licence texts live in LICENSES/ (REUSE); a bare duplicate is not tracked
+LICENSE

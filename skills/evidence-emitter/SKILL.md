@@ -6,6 +6,7 @@ description: >-
   applied to an action or a piece of work, emit a governance certificate or an
   audit-evidence package, attest a compliance-fleet decision or a privacy-shield
   scan report, or verify such a package offline.
+allowed-tools: evidence_emit evidence_verify
 governance:
   grade: L1
   actions:
@@ -30,7 +31,11 @@ governance:
 
 # evidence-emitter
 
-Implemented in the `evidence_emitter` package: `emit(subject, ...) ->
+Primary path: call `evidence_emit` to produce a development-signed package or
+`evidence_verify` to verify such a package fully offline. The MCP surface never
+accepts, creates, or stores production key material.
+
+The same operations are implemented in the `evidence_emitter` package: `emit(subject, ...) ->
 EvidencePackage` and `verify(package) -> VerdictReport`, plus the `evidence-emit`
 and `evidence-verify` CLIs.
 

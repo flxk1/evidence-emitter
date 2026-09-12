@@ -14,5 +14,15 @@
     "governance",
     "audit",
     "offline-verifiable"
-  ]
+  ],
+  "mcpServers": {
+    "loomground": {
+      "command": "loomground-mcp",
+      "args": [
+        "serve",
+        "--transport",
+        "stdio"
+      ]
+    }
+  }
 }

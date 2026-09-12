@@ -16,10 +16,10 @@ reported as non-production.
 verified, the report carries no structural finding, and every `present` section
 came back without a `fail`-severity finding.
 
-## Relationship to RVND
+## Relationship to hosts
 
-The evidence attests the governance an agent applied. It imports no `rvnd.*`
-module and depends on no RVND runtime. An RVND deployment can consume a package;
+The evidence attests the governance an agent applied. It imports no host
+module and depends on no host runtime. A deployment can consume a package;
 the package neither requires nor references one.
 
 ## Honest limits

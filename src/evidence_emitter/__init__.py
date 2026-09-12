@@ -9,7 +9,7 @@ oversight-certificate, enforcement-posture, effect-reconciliation, norm-freshnes
 obligation-discharge, and the 5d+nd grounding resolver — into one DSSE-signed
 in-toto Statement, and ships an offline verifier. Components are optional and
 probed independently: the package degrades to whatever is present and marks the
-rest absent. It attests an agent's own governance and depends on no RVND runtime.
+rest absent. It attests an agent's own governance and depends on no host runtime.
 """
 from ._version import __version__
 from .components import EvidenceContext

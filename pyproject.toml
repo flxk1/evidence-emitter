@@ -19,24 +19,24 @@ canonical = ["rfc8785>=0.1"]
 ed25519 = ["cryptography>=41"]
 # Any subset of the assurance components may be installed; each is probed at runtime.
 assurance = [
-    "governance-certification",
-    "oversight-certificate",
-    "enforcement-posture",
-    "effect-reconciliation",
-    "norm-freshness",
-    "obligation-discharge",
-    "5d-nd",
+    "governance-certification @ git+https://github.com/flxk1/governance-certification@v0.2.0",
+    "oversight-certificate @ git+https://github.com/flxk1/oversight-certificate@v0.2.0",
+    "enforcement-posture @ git+https://github.com/flxk1/enforcement-posture@v0.5.1",
+    "effect-reconciliation @ git+https://github.com/flxk1/effect-reconciliation@v0.2.0",
+    "norm-freshness @ git+https://github.com/flxk1/norm-freshness@v0.3.0",
+    "obligation-discharge @ git+https://github.com/flxk1/obligation-discharge@v0.1.0",
+    "5d-nd @ git+https://github.com/flxk1/5d-nd@v0.2.0",
 ]
 # enforcement-posture and effect-reconciliation are the two assurance
 # components the test fixtures exercise for real (see tests/fixtures.py);
-# neither is on PyPI, so dev pins them straight to their source, matching
-# the commits this suite is known to pass against.
+# neither is on PyPI, so dev references their source directly, at the same
+# release tags the assurance extra names. This suite passes against them.
 dev = [
     "pytest>=7",
     "rfc8785>=0.1",
     "cryptography>=41",
-    "enforcement-posture @ git+https://github.com/flxk1/enforcement-posture@fdd143a2a853fdba980dc45fbd6e69199ad5598c",
-    "effect-reconciliation @ git+https://github.com/flxk1/effect-reconciliation@b2b3f995c0d9f9cca9bbabdf628d88cda26c91d2",
+    "enforcement-posture @ git+https://github.com/flxk1/enforcement-posture@v0.5.1",
+    "effect-reconciliation @ git+https://github.com/flxk1/effect-reconciliation@v0.2.0",
 ]
 
 [project.scripts]

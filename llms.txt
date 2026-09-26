@@ -43,3 +43,4 @@ Assurance artifacts. Composes the installed loomground assurance components — 
 
 Language: loomground — guide https://github.com/flxk1/loomground/blob/main/llms.txt (the .lg language an agent reads, emits, validates); catalogue https://github.com/flxk1/loomground/blob/main/CATALOGUE.json
 Skills: evidence-emitter
+MCP tools: evidence_emit, evidence_verify

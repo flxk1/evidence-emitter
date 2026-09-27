@@ -13,8 +13,7 @@ Import name `evidence_emitter`. `requires-python = ">=3.11"`; `dependencies = []
 
 ## Plugin marketplace
 
-Publication of the `loomground-plugins` marketplace is pending. Once it is
-published:
+The `loomground-plugins` marketplace carries this plugin:
 
 ```
 /plugin marketplace add flxk1/loomground-plugins
@@ -31,7 +30,7 @@ Each extra is declared in `pyproject.toml` under
 | `canonical` | `rfc8785>=0.1` | RFC 8785 (JCS) canonicalization. Without it a stdlib sort-keys/compact-separators approximation is used and named in the package as `jcs-stdlib`. |
 | `ed25519` | `cryptography>=41` | `Ed25519Signer` / `Ed25519Verifier`. Key material is supplied by the host. |
 | `assurance` | `governance-certification`, `oversight-certificate`, `enforcement-posture`, `effect-reconciliation`, `norm-freshness`, `obligation-discharge`, `5d-nd` | The assurance components the package composes. Any subset may be installed; each is probed independently at emit time. |
-| `dev` | `pytest>=7`, `rfc8785>=0.1`, `cryptography>=41`, `enforcement-posture` and `effect-reconciliation` at pinned git commits | The test environment. The two pinned components are the ones `tests/fixtures.py` exercises for real; neither is on PyPI, so the pin is a full-SHA git source. |
+| `dev` | `pytest>=7`, `rfc8785>=0.1`, `cryptography>=41`, `enforcement-posture` and `effect-reconciliation` at pinned release tags | The test environment. The two pinned components are the ones `tests/fixtures.py` exercises for real; neither is on PyPI, so the pin is a git source at the release tag the `assurance` extra names. |
 
 `.github/workflows/ci.yml` installs `.[dev]` and runs `pytest` on Python 3.11
 and 3.14.

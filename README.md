@@ -62,6 +62,10 @@ Assurance artifacts. Composes the installed loomground assurance components — 
 
 0.1.0 · 21 tests · Python >=3.11 · zero required dependencies
 
+## How this is made
+
+The code and documentation are written with Loomground agents running on Claude (Anthropic). The maintainer reads and corrects all of it.
+
 ## License
 
 Apache-2.0 — [LICENSES/Apache-2.0.txt](LICENSES/Apache-2.0.txt).
